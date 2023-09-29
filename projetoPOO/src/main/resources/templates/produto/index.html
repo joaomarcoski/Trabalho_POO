@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <main>
+            <h1>Produtos</h1>
+            <hr>
+
+            <a th:href="@{/produto/novo}" class="btn btn-primary">Novo</a>
+
+            <table class="table" id="tabprodutos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="umProduto : ${listaProdutos}">
+                        <td th:text="${umProduto.nome}"></th>
+                        <td th:text="${umProduto.preco}"></th>
+                        <td th:text="${umProduto.quantidade}"></th>
+                        <td><a class="btn btn-secondary"
+                            th:href="@{'/produto/alterar/' + 
+                            ${umProduto.id}}">Alterar</a>
+                            <button th:data-id="${umProduto.id}" class="btn btn-danger js-delete">Excluir</button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <div class="modal" tabindex="-1" id="modalproduto">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Excluir Produto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Confirma a exclusão do Produto?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div th:include="layout :: footer">(footer)</div>
+        <script th:src="@{/script.js}"></script>
+    </body>
+</html>
